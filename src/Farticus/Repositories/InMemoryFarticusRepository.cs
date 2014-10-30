@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Farticus
 {
-    public class InMemoryFarticusRepository
+    public class InMemoryFarticusRepository : IFarticusRepository
     {
         private readonly IEnumerable<string> _messages = new List<string>()
         {

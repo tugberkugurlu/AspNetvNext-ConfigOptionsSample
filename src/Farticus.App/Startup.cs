@@ -12,6 +12,7 @@ namespace Farticus.App
         {
             app.UseServices(services =>
             {
+                services.AddScoped<IFarticusRepository, InMemoryFarticusRepository>();
                 services.AddTransient<IConfigureOptions<FarticusOptions>, FarticusOptionsSetup>();
             });
 

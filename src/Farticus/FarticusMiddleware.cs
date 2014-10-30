@@ -11,12 +11,15 @@ namespace Farticus
     {
         // This shouldn't be static as this middleware is constructed per pipeline lifetime.
         private readonly ILogger _logger;
+        private readonly IFarticusRepository _repository;
         private readonly FarticusOptions _options;
 
         // Get ILoggerFactory injected into this middleware as it was put inside the DI system
         // by Microsoft.AspNet.Hosting at early points during the bootstrapping process.
         public FarticusMiddleware(RequestDelegate next,
-            ILoggerFactory loggerFactory, IOptions<FarticusOptions> options)
+            ILoggerFactory loggerFactory,
+            IFarticusRepository repository,
+            IOptions<FarticusOptions> options)
         {
             if(loggerFactory == null)
             {
@@ -28,7 +31,13 @@ namespace Farticus
                 throw new ArgumentNullException("options");
             }
 
+            if(repository == null)
+            {
+                throw new ArgumentNullException("repository");
+            }
+
             _logger = loggerFactory.Create(typeof(FarticusMiddleware).FullName);
+            _repository = repository;
             _options = options.Options;
         }
 
