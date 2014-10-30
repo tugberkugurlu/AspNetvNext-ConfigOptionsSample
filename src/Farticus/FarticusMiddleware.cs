@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
@@ -43,7 +44,16 @@ namespace Farticus
 
         public async Task Invoke(HttpContext context)
         {
-            await context.Response.WriteAsync("Limit: " + _options.NumberOfMessages.ToString());
+            var builder = new StringBuilder();
+            builder.Append("<div><strong>Farting...</strong></div>");
+            for(int i = 0; i < _options.NumberOfMessages; i++)
+            {
+                string message = await _repository.GetFartMessageAsync();
+                builder.AppendFormat("<div>{0}</div>", message);
+            }
+
+            context.Response.ContentType = "text/html";
+            await context.Response.WriteAsync(builder.ToString());
         }
     }
 }
