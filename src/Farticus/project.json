@@ -1,0 +1,21 @@
+{
+    "name": "Farticus",
+    "dependencies": {
+        "Microsoft.AspNet.Http": "1.0.0-*",
+        "Microsoft.Framework.OptionsModel": "1.0.0-*",
+        "Microsoft.Framework.Logging.Interfaces": { "version": "1.0.0-*", "type": "build" }
+    },
+    "frameworks": {
+        "aspnet50": {
+        },
+        "aspnetcore50": {
+            "dependencies": {
+                "System.Collections.Concurrent": "",
+                "System.ComponentModel": "",
+                "System.Linq.Expressions": "",
+                "System.Threading": "",
+                "System.Threading.Tasks": ""
+            }
+        }
+    }
+}
