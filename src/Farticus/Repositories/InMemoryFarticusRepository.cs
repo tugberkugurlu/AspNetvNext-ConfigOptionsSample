@@ -6,8 +6,9 @@ using System.Linq;
 
 namespace Farticus
 {
-    public class InMemoryFarticusRepository : IFarticusRepository
+    public class InMemoryFarticusRepository : IFarticusRepository, IDisposable
     {
+        private bool _disposed = false;
         private readonly IEnumerable<string> _messages = new List<string>()
         {
             "Yes! This is my favorite sound in the whole world",
@@ -23,7 +24,24 @@ namespace Farticus
 
         public Task<string> GetFartMessageAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
+            ThrowIfDisposed();
             return Task.FromResult<string>(_messages.OrderBy(_ => Guid.NewGuid()).First());
+        }
+
+        public void Dispose()
+        {
+            if(_disposed == false)
+            {
+                _disposed = true;
+            }
+        }
+
+        private void ThrowIfDisposed()
+        {
+            if(_disposed == true)
+            {
+                throw new ObjectDisposedException(typeof(InMemoryFarticusRepository).FullName);
+            }
         }
     }
 }
