@@ -32,10 +32,22 @@ namespace Farticus
 
             _logger = loggerFactory.Create(typeof(FarticusMiddleware).FullName);
             _options = options.Options;
+
+            _logger.Write(
+                TraceType.Information,
+                0,
+                "FarticusMiddleware has been successfully constructed.", null,
+                (state, ex) => (string)state);
         }
 
         public async Task Invoke(HttpContext context)
         {
+            _logger.Write(
+                TraceType.Verbose,
+                0,
+                "Processing the request.", null,
+                (state, ex) => (string)state);
+
             IFarticusRepository repository = context
                 .RequestServices
                 .GetService(typeof(IFarticusRepository)) as IFarticusRepository;

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.Framework.Logging;
 
 namespace Farticus
 {
@@ -22,14 +23,44 @@ namespace Farticus
             "What a stinker. The paint is coming off the walls"
         };
 
+        private readonly ILogger _logger;
+
+        public InMemoryFarticusRepository(ILoggerFactory loggerFactory)
+        {
+            if(loggerFactory == null)
+            {
+                throw new ArgumentNullException("loggerFactory");
+            }
+
+            _logger = loggerFactory.Create(typeof(InMemoryFarticusRepository).FullName);
+
+            _logger.Write(
+                TraceType.Verbose,
+                0,
+                "Instance has been successfully constructed.", null,
+                (state, ex) => (string)state);
+        }
+
         public Task<string> GetFartMessageAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
+            _logger.Write(
+                TraceType.Verbose,
+                0,
+                "GetFartMessageAsync has been called.", null,
+                (state, ex) => (string)state);
+
             ThrowIfDisposed();
             return Task.FromResult<string>(_messages.OrderBy(_ => Guid.NewGuid()).First());
         }
 
         public void Dispose()
         {
+            _logger.Write(
+                TraceType.Verbose,
+                0,
+                "Dispose has been called.", null,
+                (state, ex) => (string)state);
+
             if(_disposed == false)
             {
                 _disposed = true;
