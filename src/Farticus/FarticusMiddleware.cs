@@ -40,17 +40,13 @@ namespace Farticus
                 (state, ex) => (string)state);
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, IFarticusRepository repository)
         {
             _logger.Write(
                 LogLevel.Verbose,
                 0,
                 "Processing the request.", null,
                 (state, ex) => (string)state);
-
-            IFarticusRepository repository = context
-                .RequestServices
-                .GetService(typeof(IFarticusRepository)) as IFarticusRepository;
 
             if(repository == null)
             {
