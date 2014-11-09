@@ -20,7 +20,7 @@ namespace Farticus.App
                 throw new ArgumentNullException("loggerFactory");
             }
 
-            loggerFactory.AddConsole((category, traceType) => traceType >= TraceType.Verbose);
+            loggerFactory.AddConsole((category, logLevel) => logLevel >= LogLevel.Verbose);
             _logger = loggerFactory.Create<Startup>();
             _logger.WriteVerbose("Constructed the instance.");
         }

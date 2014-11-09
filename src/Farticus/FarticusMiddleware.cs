@@ -34,7 +34,7 @@ namespace Farticus
             _options = options.Options;
 
             _logger.Write(
-                TraceType.Information,
+                LogLevel.Information,
                 0,
                 "FarticusMiddleware has been successfully constructed.", null,
                 (state, ex) => (string)state);
@@ -43,7 +43,7 @@ namespace Farticus
         public async Task Invoke(HttpContext context)
         {
             _logger.Write(
-                TraceType.Verbose,
+                LogLevel.Verbose,
                 0,
                 "Processing the request.", null,
                 (state, ex) => (string)state);

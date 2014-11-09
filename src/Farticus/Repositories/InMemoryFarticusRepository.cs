@@ -35,7 +35,7 @@ namespace Farticus
             _logger = loggerFactory.Create(typeof(InMemoryFarticusRepository).FullName);
 
             _logger.Write(
-                TraceType.Verbose,
+                LogLevel.Verbose,
                 0,
                 "Instance has been successfully constructed.", null,
                 (state, ex) => (string)state);
@@ -44,7 +44,7 @@ namespace Farticus
         public Task<string> GetFartMessageAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             _logger.Write(
-                TraceType.Verbose,
+                LogLevel.Verbose,
                 0,
                 "GetFartMessageAsync has been called.", null,
                 (state, ex) => (string)state);
@@ -56,7 +56,7 @@ namespace Farticus
         public void Dispose()
         {
             _logger.Write(
-                TraceType.Verbose,
+                LogLevel.Verbose,
                 0,
                 "Dispose has been called.", null,
                 (state, ex) => (string)state);
